@@ -31,7 +31,7 @@ public class Account extends BaseEntity{
     @Column(nullable = false)
     private LocalDate birthday;
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String email;
 
     @Column(nullable = false)

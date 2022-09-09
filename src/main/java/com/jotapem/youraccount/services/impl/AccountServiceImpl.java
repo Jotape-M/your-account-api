@@ -8,6 +8,8 @@ import com.jotapem.youraccount.services.AccountService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityExistsException;
+
 
 @Service
 @RequiredArgsConstructor
@@ -19,7 +21,15 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public Account create(AccountCreateDTO account) {
+        verifyIfExists(account.getEmail());
         Account accountToCreate = accountMapper.toModel(account);
         return accountRepository.save(accountToCreate);
+    }
+
+    @Override
+    public void verifyIfExists(String email) {
+        accountRepository.findByEmail(email).ifPresent(account -> {
+            throw new EntityExistsException("An account already exists with this email " + email);
+        });
     }
 }

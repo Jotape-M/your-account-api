@@ -6,4 +6,6 @@ import com.jotapem.youraccount.models.entities.Account;
 public interface AccountService {
 
     Account create(AccountCreateDTO account);
+
+    void verifyIfExists(String email);
 }
