@@ -9,11 +9,10 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.jotapem</groupId>
-	<artifactId>YourAccount</artifactId>
+	<artifactId>youraccount</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>YourAccount</name>
 	<description>Project Your Account</description>
-	<packaging>jar</packaging>
 	<properties>
 		<java.version>11</java.version>
 		<org.mapstruct.version>1.5.2.Final</org.mapstruct.version>
