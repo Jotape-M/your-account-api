@@ -1,7 +1,7 @@
 package com.jotapem.youraccount.controllers;
 
 import com.jotapem.youraccount.models.dto.AccountCreateDTO;
-import com.jotapem.youraccount.models.entities.Account;
+import com.jotapem.youraccount.models.dto.AccountDetailsDTO;
 import com.jotapem.youraccount.services.AccountService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -20,7 +20,7 @@ public class AccountController {
     private final AccountService accountService;
 
     @PostMapping
-    public ResponseEntity<Account> create(@RequestBody @Valid AccountCreateDTO account) {
+    public ResponseEntity<AccountDetailsDTO> create(@RequestBody @Valid AccountCreateDTO account) {
          return ResponseEntity.ok(accountService.create(account));
     }
 }

@@ -2,6 +2,7 @@ package com.jotapem.youraccount.services.impl;
 
 import com.jotapem.youraccount.mappers.AccountMapper;
 import com.jotapem.youraccount.models.dto.AccountCreateDTO;
+import com.jotapem.youraccount.models.dto.AccountDetailsDTO;
 import com.jotapem.youraccount.models.entities.Account;
 import com.jotapem.youraccount.repositories.AccountRepository;
 import com.jotapem.youraccount.services.AccountService;
@@ -20,10 +21,11 @@ public class AccountServiceImpl implements AccountService {
     private final AccountMapper accountMapper;
 
     @Override
-    public Account create(AccountCreateDTO account) {
+    public AccountDetailsDTO create(AccountCreateDTO account) {
         verifyIfExists(account.getEmail());
-        Account accountToCreate = accountMapper.toModel(account);
-        return accountRepository.save(accountToCreate);
+        Account accountToCreate = accountMapper.toEntity(account);
+        Account accountCreated = accountRepository.save(accountToCreate);
+        return accountMapper.toDetailsDTO(accountCreated);
     }
 
     @Override

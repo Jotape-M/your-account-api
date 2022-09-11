@@ -1,11 +1,11 @@
 package com.jotapem.youraccount.services;
 
 import com.jotapem.youraccount.models.dto.AccountCreateDTO;
-import com.jotapem.youraccount.models.entities.Account;
+import com.jotapem.youraccount.models.dto.AccountDetailsDTO;
 
 public interface AccountService {
 
-    Account create(AccountCreateDTO account);
+    AccountDetailsDTO create(AccountCreateDTO account);
 
     void verifyIfExists(String email);
 }
