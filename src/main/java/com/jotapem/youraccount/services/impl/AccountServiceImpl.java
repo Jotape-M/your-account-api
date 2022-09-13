@@ -12,6 +12,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityExistsException;
+import javax.persistence.EntityNotFoundException;
+import java.util.UUID;
 
 
 @Service
@@ -31,10 +33,28 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
+    public void update(UUID id, AccountCreateDTO account) {
+        Account accountFound = verifyAndGetIfExists(id);
+
+        if(!accountFound.getEmail().equals(account.getEmail())) {
+            verifyIfExists(account.getEmail());
+        }
+
+        Account accountToUpdate = accountMapper.toEntity(account);
+        accountToUpdate.setCreatedAt(accountFound.getCreatedAt());
+        accountToUpdate.setId(id);
+        accountRepository.save(accountToUpdate);
+    }
+
+    @Override
     public void verifyIfExists(String email) {
         accountRepository.findByEmail(email).ifPresent(account -> {
             throw new EntityExistsException("An account already exists with this email " + email);
         });
+    }
+
+    public Account verifyAndGetIfExists(UUID id) {
+        return accountRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Account not found with id: " + id));
     }
 
     @Override
