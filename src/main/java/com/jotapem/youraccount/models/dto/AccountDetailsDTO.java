@@ -10,5 +10,7 @@ import java.util.UUID;
 @Setter
 public class AccountDetailsDTO {
     private UUID id;
+    private String number;
+    private String agency;
     private BigDecimal balance;
 }

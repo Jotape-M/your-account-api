@@ -1,0 +1,4 @@
+DELETE FROM accounts;
+
+ALTER TABLE accounts ADD agency VARCHAR(4) NOT NULL;
+ALTER TABLE accounts ADD number VARCHAR NOT NULL;

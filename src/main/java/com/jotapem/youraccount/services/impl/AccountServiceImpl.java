@@ -26,6 +26,8 @@ public class AccountServiceImpl implements AccountService {
     @Override
     public AccountDetailsDTO create(AccountCreateDTO account) {
         Account accountToCreate = accountMapper.toEntity(account);
+        accountToCreate.setAgency("0864");
+        accountToCreate.setNumber("31234123-1");
         Account accountCreated = accountRepository.save(accountToCreate);
         return accountMapper.toDetailsDTO(accountCreated);
     }
