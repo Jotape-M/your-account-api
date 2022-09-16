@@ -10,6 +10,5 @@ import java.util.UUID;
 public interface AccountService {
     AccountDetailsDTO create(AccountCreateDTO account);
     void update(UUID id, AccountCreateDTO accountCreateDTO);
-    void verifyIfExists(String email);
     Page<AccountDetailsDTO> findAll(Pageable pageable);
 }
