@@ -1,7 +1,7 @@
 package com.jotapem.youraccount.controllers;
 
-import com.jotapem.youraccount.models.dto.AccountCreateDTO;
-import com.jotapem.youraccount.models.dto.AccountDetailsDTO;
+import com.jotapem.youraccount.models.dto.account.AccountCreateDTO;
+import com.jotapem.youraccount.models.dto.account.AccountDetailsDTO;
 import com.jotapem.youraccount.models.dto.PageResultDTO;
 import com.jotapem.youraccount.services.AccountService;
 import lombok.RequiredArgsConstructor;

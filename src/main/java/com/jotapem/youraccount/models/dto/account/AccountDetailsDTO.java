@@ -1,4 +1,4 @@
-package com.jotapem.youraccount.models.dto;
+package com.jotapem.youraccount.models.dto.account;
 
 import lombok.Getter;
 import lombok.Setter;
