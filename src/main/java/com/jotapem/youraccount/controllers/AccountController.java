@@ -1,5 +1,6 @@
 package com.jotapem.youraccount.controllers;
 
+import com.jotapem.youraccount.controllers.docs.AccountControllerDocs;
 import com.jotapem.youraccount.models.dto.account.AccountCreateDTO;
 import com.jotapem.youraccount.models.dto.account.AccountDetailsDTO;
 import com.jotapem.youraccount.models.dto.PageResultDTO;
@@ -17,7 +18,7 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/api/accounts")
 @RequiredArgsConstructor
-public class AccountController {
+public class AccountController implements AccountControllerDocs {
 
     private final AccountService accountService;
 
