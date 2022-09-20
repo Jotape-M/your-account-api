@@ -1,6 +1,6 @@
-package com.jotapem.youraccount.validations;
+package com.jotapem.youraccount.validations.annotations;
 
-import com.jotapem.youraccount.validations.constraints.OfAgeConstraint;
+import com.jotapem.youraccount.validations.annotations.constraints.OfAgeConstraint;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
