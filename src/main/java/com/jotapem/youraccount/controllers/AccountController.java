@@ -4,6 +4,7 @@ import com.jotapem.youraccount.controllers.docs.AccountControllerDocs;
 import com.jotapem.youraccount.models.dto.account.AccountCreateDTO;
 import com.jotapem.youraccount.models.dto.account.AccountDetailsDTO;
 import com.jotapem.youraccount.models.dto.PageResultDTO;
+import com.jotapem.youraccount.models.dto.account.AccountUpdateDTO;
 import com.jotapem.youraccount.services.AccountService;
 import lombok.RequiredArgsConstructor;
 import org.springdoc.api.annotations.ParameterObject;
@@ -36,7 +37,7 @@ public class AccountController implements AccountControllerDocs {
 
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void update(@PathVariable("id") UUID id, @RequestBody @Valid AccountCreateDTO account) {
+    public void update(@PathVariable("id") UUID id, @RequestBody @Valid AccountUpdateDTO account) {
         accountService.update(id, account);
     }
 }

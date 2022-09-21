@@ -3,6 +3,7 @@ package com.jotapem.youraccount.services.impl;
 import com.jotapem.youraccount.mappers.AccountMapper;
 import com.jotapem.youraccount.models.dto.account.AccountCreateDTO;
 import com.jotapem.youraccount.models.dto.account.AccountDetailsDTO;
+import com.jotapem.youraccount.models.dto.account.AccountUpdateDTO;
 import com.jotapem.youraccount.models.entities.Account;
 import com.jotapem.youraccount.models.entities.Owner;
 import com.jotapem.youraccount.repositories.AccountRepository;
@@ -41,10 +42,12 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public void update(UUID id, AccountCreateDTO account) {
+    public void update(UUID id, AccountUpdateDTO account) {
         Account accountFound = verifyAndGetIfExists(id);
 
         Account accountToUpdate = accountMapper.toEntity(account);
+        accountToUpdate.setOwner(accountFound.getOwner());
+        accountToUpdate.setNumber(accountFound.getNumber());
         accountToUpdate.setCreatedAt(accountFound.getCreatedAt());
         accountToUpdate.setId(id);
         accountRepository.save(accountToUpdate);
