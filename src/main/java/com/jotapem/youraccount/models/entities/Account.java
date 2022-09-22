@@ -25,7 +25,7 @@ public class Account extends BaseEntity{
     @Column(precision = 12, scale = 2)
     private BigDecimal balance;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "owner_id", unique = true)
     private Owner owner;
 }

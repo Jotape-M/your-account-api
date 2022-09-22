@@ -61,4 +61,10 @@ public class AccountServiceImpl implements AccountService {
     public Page<AccountDetailsDTO> findAll(Pageable pageable) {
         return accountRepository.findAll(pageable).map(accountMapper::toDetailsDTO);
     }
+
+    @Override
+    public void deleteById(UUID id) {
+        verifyAndGetIfExists(id);
+        accountRepository.deleteById(id);
+    }
 }

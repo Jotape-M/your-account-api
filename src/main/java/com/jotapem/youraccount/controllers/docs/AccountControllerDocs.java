@@ -39,4 +39,7 @@ public interface AccountControllerDocs {
             @ApiResponse(responseCode = "404", description = "Account not found")
     })
     void update(UUID id, AccountUpdateDTO account);
+
+
+    void deleteById(UUID id);
 }

@@ -40,4 +40,10 @@ public class AccountController implements AccountControllerDocs {
     public void update(@PathVariable("id") UUID id, @RequestBody @Valid AccountUpdateDTO account) {
         accountService.update(id, account);
     }
+
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteById(@PathVariable("id") UUID id) {
+        accountService.deleteById(id);
+    }
 }
