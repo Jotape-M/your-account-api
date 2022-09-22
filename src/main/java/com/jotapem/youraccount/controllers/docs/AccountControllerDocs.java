@@ -41,5 +41,11 @@ public interface AccountControllerDocs {
     void update(UUID id, AccountUpdateDTO account);
 
 
+    @Operation(summary = "Delete account operation")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "400", description = "Client error",
+                    content = @Content),
+            @ApiResponse(responseCode = "404", description = "Account not found")
+    })
     void deleteById(UUID id);
 }
