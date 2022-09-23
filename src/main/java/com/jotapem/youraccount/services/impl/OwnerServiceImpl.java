@@ -9,6 +9,8 @@ import com.jotapem.youraccount.validations.OwnerValidator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.UUID;
+
 @Service
 @RequiredArgsConstructor
 public class OwnerServiceImpl implements OwnerService {
@@ -24,5 +26,15 @@ public class OwnerServiceImpl implements OwnerService {
         ownerValidator.validateForCreation(owner);
         Owner ownerToCreate = ownerMapper.toOwnerEntity(owner);
         return ownerRepository.save(ownerToCreate);
+    }
+
+    @Override
+    public void update(UUID id, OwnerCreateDTO owner) {
+        Owner ownerFound = ownerValidator.verifyAndGetIfExists(id);
+        ownerValidator.validateForUpdate(ownerFound, owner);
+        Owner ownerToUpdate = ownerMapper.toOwnerEntity(owner);
+        ownerToUpdate.setId(id);
+        ownerToUpdate.setCreatedAt(ownerFound.getCreatedAt());
+        ownerRepository.save(ownerToUpdate);
     }
 }
