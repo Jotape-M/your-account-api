@@ -1,6 +1,6 @@
 package com.jotapem.youraccount.controllers.docs;
 
-import com.jotapem.youraccount.models.dto.OwnerCreateDTO;
+import com.jotapem.youraccount.models.dto.owner.OwnerCreateDTO;
 
 import java.util.UUID;
 

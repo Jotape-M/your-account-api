@@ -1,6 +1,6 @@
 package com.jotapem.youraccount.validations;
 
-import com.jotapem.youraccount.models.dto.OwnerCreateDTO;
+import com.jotapem.youraccount.models.dto.owner.OwnerCreateDTO;
 import com.jotapem.youraccount.models.entities.Owner;
 import com.jotapem.youraccount.repositories.OwnerRepository;
 import lombok.RequiredArgsConstructor;

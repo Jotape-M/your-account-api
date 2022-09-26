@@ -1,7 +1,7 @@
 package com.jotapem.youraccount.services.impl;
 
 import com.jotapem.youraccount.mappers.OwnerMapper;
-import com.jotapem.youraccount.models.dto.OwnerCreateDTO;
+import com.jotapem.youraccount.models.dto.owner.OwnerCreateDTO;
 import com.jotapem.youraccount.models.entities.Owner;
 import com.jotapem.youraccount.repositories.OwnerRepository;
 import com.jotapem.youraccount.services.OwnerService;

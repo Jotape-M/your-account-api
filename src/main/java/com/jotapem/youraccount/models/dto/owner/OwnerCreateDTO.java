@@ -1,4 +1,4 @@
-package com.jotapem.youraccount.models.dto;
+package com.jotapem.youraccount.models.dto.owner;
 
 import com.jotapem.youraccount.validations.annotations.constraints.OfAgeConstraint;
 import io.swagger.v3.oas.annotations.media.Schema;

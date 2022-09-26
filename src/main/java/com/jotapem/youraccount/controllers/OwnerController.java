@@ -1,7 +1,7 @@
 package com.jotapem.youraccount.controllers;
 
 import com.jotapem.youraccount.controllers.docs.OwnerControllerDocs;
-import com.jotapem.youraccount.models.dto.OwnerCreateDTO;
+import com.jotapem.youraccount.models.dto.owner.OwnerCreateDTO;
 import com.jotapem.youraccount.services.OwnerService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

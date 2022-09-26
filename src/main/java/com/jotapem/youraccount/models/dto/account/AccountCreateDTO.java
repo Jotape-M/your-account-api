@@ -1,6 +1,6 @@
 package com.jotapem.youraccount.models.dto.account;
 
-import com.jotapem.youraccount.models.dto.OwnerCreateDTO;
+import com.jotapem.youraccount.models.dto.owner.OwnerCreateDTO;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 import lombok.Setter;
