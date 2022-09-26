@@ -9,13 +9,13 @@ import com.jotapem.youraccount.models.entities.Owner;
 import com.jotapem.youraccount.repositories.AccountRepository;
 import com.jotapem.youraccount.services.AccountService;
 import com.jotapem.youraccount.services.OwnerService;
+import com.jotapem.youraccount.validations.AccountValidator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.EntityNotFoundException;
 import java.util.UUID;
 
 
@@ -30,6 +30,8 @@ public class AccountServiceImpl implements AccountService {
 
     private final OwnerService ownerService;
 
+    private final AccountValidator accountValidator;
+
     @Override
     public AccountDetailsDTO create(AccountCreateDTO account) {
         Account accountToCreate = accountMapper.toEntity(account);
@@ -42,7 +44,7 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public void update(UUID id, AccountUpdateDTO account) {
-        Account accountFound = verifyAndGetIfExists(id);
+        Account accountFound = accountValidator.verifyAndGetIfExists(id);
 
         Account accountToUpdate = accountMapper.toEntity(account);
         accountToUpdate.setOwner(accountFound.getOwner());
@@ -52,10 +54,6 @@ public class AccountServiceImpl implements AccountService {
         accountRepository.save(accountToUpdate);
     }
 
-    public Account verifyAndGetIfExists(UUID id) {
-        return accountRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Account not found with id: " + id));
-    }
-
     @Override
     public Page<AccountDetailsDTO> findAll(Pageable pageable) {
         return accountRepository.findAll(pageable).map(accountMapper::toDetailsDTO);
@@ -63,7 +61,7 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public void deleteById(UUID id) {
-        verifyAndGetIfExists(id);
-        accountRepository.deleteById(id);
+        Account accountFound = accountValidator.verifyAndGetIfExists(id);
+        accountRepository.delete(accountFound);
     }
 }
