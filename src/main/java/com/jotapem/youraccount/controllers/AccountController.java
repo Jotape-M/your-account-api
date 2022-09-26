@@ -46,4 +46,9 @@ public class AccountController implements AccountControllerDocs {
     public void deleteById(@PathVariable("id") UUID id) {
         accountService.deleteById(id);
     }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<AccountDetailsDTO> getById(@PathVariable("id") UUID id) {
+        return ResponseEntity.ok(accountService.findById(id));
+    }
 }

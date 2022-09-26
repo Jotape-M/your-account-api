@@ -13,4 +13,5 @@ public interface AccountService {
     void update(UUID id, AccountUpdateDTO accountCreateDTO);
     Page<AccountDetailsDTO> findAll(Pageable pageable);
     void deleteById(UUID id);
+    AccountDetailsDTO findById(UUID id);
 }

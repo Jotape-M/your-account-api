@@ -48,4 +48,6 @@ public interface AccountControllerDocs {
             @ApiResponse(responseCode = "404", description = "Account not found")
     })
     void deleteById(UUID id);
+
+    ResponseEntity<AccountDetailsDTO> getById(UUID id);
 }

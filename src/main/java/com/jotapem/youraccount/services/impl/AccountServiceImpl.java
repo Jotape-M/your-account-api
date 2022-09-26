@@ -64,4 +64,10 @@ public class AccountServiceImpl implements AccountService {
         Account accountFound = accountValidator.verifyAndGetIfExists(id);
         accountRepository.delete(accountFound);
     }
+
+    @Override
+    public AccountDetailsDTO findById(UUID id) {
+        Account accountFound = accountValidator.verifyAndGetIfExists(id);
+        return accountMapper.toDetailsDTO(accountFound);
+    }
 }
