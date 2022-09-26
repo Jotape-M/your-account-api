@@ -34,7 +34,6 @@ public class AccountServiceImpl implements AccountService {
     public AccountDetailsDTO create(AccountCreateDTO account) {
         Account accountToCreate = accountMapper.toEntity(account);
         Owner ownerCreated = ownerService.create(account.getOwner());
-        accountToCreate.setAgency("0864");
         accountToCreate.setNumber("31234123-1");
         accountToCreate.setOwner(ownerCreated);
         Account accountCreated = accountRepository.save(accountToCreate);
