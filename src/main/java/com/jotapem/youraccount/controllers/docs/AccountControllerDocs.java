@@ -49,5 +49,11 @@ public interface AccountControllerDocs {
     })
     void deleteById(UUID id);
 
+    @Operation(summary = "Get account operation by id")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "400", description = "Client error",
+                    content = @Content),
+            @ApiResponse(responseCode = "404", description = "Account not found")
+    })
     ResponseEntity<AccountDetailsDTO> getById(UUID id);
 }
