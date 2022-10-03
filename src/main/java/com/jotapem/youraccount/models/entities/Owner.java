@@ -37,7 +37,4 @@ public class Owner extends BaseEntity {
 
     @Column(nullable = false, length = 14)
     private String telephone;
-
-    @OneToOne(mappedBy = "owner")
-    private Account account;
 }
