@@ -18,7 +18,6 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import java.util.UUID;
 
 import static io.zonky.test.db.AutoConfigureEmbeddedDatabase.RefreshMode.AFTER_EACH_TEST_METHOD;
-import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -78,6 +77,33 @@ class AccountControllerTest {
 
         Account account = accountRepository.findAll().stream().filter(x->"9999".equals(x.getAgency())).findFirst().get();
         Assertions.assertEquals("mike007@gmail.com", account.getOwner().getEmail());
+    }
+
+    @Test
+    void updateOneAccountCreated() throws Exception {
+        Assertions.assertEquals(1, accountRepository.count());
+        Assertions.assertTrue(accountRepository.existsById(UUID.fromString("01ee0bcb-4dd0-441e-a762-95b24c90ae88")));
+
+        Account accountCreated = accountRepository.findById(UUID.fromString("01ee0bcb-4dd0-441e-a762-95b24c90ae88")).get();
+
+        RequestBuilder requestBuilder = MockMvcRequestBuilders
+                .put("/api/accounts/01ee0bcb-4dd0-441e-a762-95b24c90ae88")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content("{\n" +
+                        "  \"agency\": \"0999\",\n" +
+                        "  \"balance\": 66.9\n" +
+                        "}")
+                .accept(MediaType.APPLICATION_JSON);
+
+        mockMvc.perform(requestBuilder)
+                .andExpect(status().isNoContent())
+                .andDo(print())
+                .andReturn();
+
+        Account accountUpdated = accountRepository.findById(UUID.fromString("01ee0bcb-4dd0-441e-a762-95b24c90ae88")).get();
+
+        Assertions.assertNotEquals(accountCreated.getUpdatedAt(), accountUpdated.getUpdatedAt());
+        Assertions.assertEquals("0999", accountUpdated.getAgency());
     }
 
 

@@ -1,10 +1,8 @@
 package com.jotapem.youraccount.mappers;
 
-import com.jotapem.youraccount.models.dto.account.AccountDetailsDTO;
 import com.jotapem.youraccount.models.dto.owner.OwnerCreateDTO;
 import com.jotapem.youraccount.models.dto.owner.OwnerDetailsDTO;
 import com.jotapem.youraccount.models.dto.owner.OwnerFilterDto;
-import com.jotapem.youraccount.models.entities.Account;
 import com.jotapem.youraccount.models.entities.Owner;
 import com.jotapem.youraccount.repositories.specifications.OwnerSpecification;
 import org.mapstruct.Mapper;

@@ -1,5 +1,6 @@
 package com.jotapem.youraccount.controllers;
 
+import com.jotapem.youraccount.models.entities.Owner;
 import com.jotapem.youraccount.repositories.AccountRepository;
 import com.jotapem.youraccount.repositories.OwnerRepository;
 import io.zonky.test.db.AutoConfigureEmbeddedDatabase;
@@ -14,9 +15,10 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
+import java.util.UUID;
+
 import static io.zonky.test.db.AutoConfigureEmbeddedDatabase.RefreshMode.AFTER_EACH_TEST_METHOD;
 import static org.hamcrest.Matchers.hasSize;
-import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -108,4 +110,38 @@ class OwnerControllerTest {
 
     }
 
+
+    @Test
+    void updateOneOwnerCreated() throws Exception {
+        String ownerId = "16a0aec3-4e35-403f-886d-ab4e83da40cb";
+
+        Assertions.assertEquals(1, ownerRepository.count());
+        Assertions.assertTrue(ownerRepository.existsById(UUID.fromString(ownerId)));
+
+        Owner ownerCreated = ownerRepository.findById(UUID.fromString(ownerId)).get();
+
+        RequestBuilder requestBuilder = MockMvcRequestBuilders
+                .put("/api/owners/" + ownerId)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content("{\n" +
+                        "    \"firstName\": \"Michael\",\n" +
+                        "    \"lastName\": \"Ross\",\n" +
+                        "    \"nickname\": \"Mike007\",\n" +
+                        "    \"birthDate\": \"2001-02-03\",\n" +
+                        "    \"email\": \"mike007@gmail.com\",\n" +
+                        "    \"telephone\": \"85990907755\"\n" +
+                        "  }\n")
+                .accept(MediaType.APPLICATION_JSON);
+
+        mockMvc.perform(requestBuilder)
+                .andExpect(status().isNoContent())
+                .andDo(print())
+                .andReturn();
+
+        Owner ownerUpdated = ownerRepository.findById(UUID.fromString(ownerId)).get();
+
+        Assertions.assertNotEquals(ownerCreated.getUpdatedAt(), ownerUpdated.getUpdatedAt());
+        Assertions.assertNotEquals(ownerCreated.getNickname(), ownerUpdated.getNickname());
+        Assertions.assertEquals("Mike007", ownerUpdated.getNickname());
+    }
 }
