@@ -2,18 +2,25 @@ package com.jotapem.youraccount.mappers;
 
 import com.jotapem.youraccount.models.dto.account.AccountCreateDTO;
 import com.jotapem.youraccount.models.dto.account.AccountDetailsDTO;
+import com.jotapem.youraccount.models.dto.account.AccountFilterDTO;
 import com.jotapem.youraccount.models.dto.account.AccountUpdateDTO;
 import com.jotapem.youraccount.models.entities.Account;
+import com.jotapem.youraccount.repositories.specifications.AccountSpecification;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.springframework.data.jpa.domain.Specification;
 
 @Mapper(componentModel = "spring")
-public interface AccountMapper {
+public abstract class AccountMapper {
 
     @Mapping(target = "owner", ignore = true)
-    Account toEntity(AccountCreateDTO accountCreateDTO);
+    public abstract Account toEntity(AccountCreateDTO accountCreateDTO);
 
-    AccountDetailsDTO toDetailsDTO(Account account);
+    public abstract AccountDetailsDTO toDetailsDTO(Account account);
 
-    Account toEntity(AccountUpdateDTO accountUpdateDTO);
+    public abstract Account toEntity(AccountUpdateDTO accountUpdateDTO);
+
+    public Specification<Account> toSpecification(AccountFilterDTO filterDto) {
+        return Specification.where(AccountSpecification.withAgencyOptional(filterDto.getAgency()));
+    }
 }

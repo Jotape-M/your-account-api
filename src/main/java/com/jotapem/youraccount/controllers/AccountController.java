@@ -1,14 +1,13 @@
 package com.jotapem.youraccount.controllers;
 
 import com.jotapem.youraccount.controllers.docs.AccountControllerDocs;
+import com.jotapem.youraccount.models.dto.PageResultDTO;
 import com.jotapem.youraccount.models.dto.account.AccountCreateDTO;
 import com.jotapem.youraccount.models.dto.account.AccountDetailsDTO;
-import com.jotapem.youraccount.models.dto.PageResultDTO;
+import com.jotapem.youraccount.models.dto.account.AccountFilterDTO;
 import com.jotapem.youraccount.models.dto.account.AccountUpdateDTO;
 import com.jotapem.youraccount.services.AccountService;
 import lombok.RequiredArgsConstructor;
-import org.springdoc.api.annotations.ParameterObject;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -30,9 +29,9 @@ public class AccountController implements AccountControllerDocs {
     }
 
     @GetMapping
-    public ResponseEntity<PageResultDTO<AccountDetailsDTO>> getAll(@ParameterObject Pageable pageable) {
-        PageResultDTO<AccountDetailsDTO> pageResultDTO = new PageResultDTO(accountService.findAll(pageable));
-        return ResponseEntity.ok(pageResultDTO);
+    public ResponseEntity<PageResultDTO<AccountDetailsDTO>> getPaged(@Valid AccountFilterDTO filterDTO) {
+        PageResultDTO<AccountDetailsDTO> pageResult = accountService.getPaged(filterDTO);
+        return ResponseEntity.ok(pageResult);
     }
 
     @PutMapping("/{id}")

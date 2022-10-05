@@ -1,8 +1,10 @@
 package com.jotapem.youraccount.services.impl;
 
 import com.jotapem.youraccount.mappers.AccountMapper;
+import com.jotapem.youraccount.models.dto.PageResultDTO;
 import com.jotapem.youraccount.models.dto.account.AccountCreateDTO;
 import com.jotapem.youraccount.models.dto.account.AccountDetailsDTO;
+import com.jotapem.youraccount.models.dto.account.AccountFilterDTO;
 import com.jotapem.youraccount.models.dto.account.AccountUpdateDTO;
 import com.jotapem.youraccount.models.entities.Account;
 import com.jotapem.youraccount.models.entities.Owner;
@@ -12,7 +14,7 @@ import com.jotapem.youraccount.services.OwnerService;
 import com.jotapem.youraccount.validations.AccountValidator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -55,8 +57,10 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public Page<AccountDetailsDTO> findAll(Pageable pageable) {
-        return accountRepository.findAll(pageable).map(accountMapper::toDetailsDTO);
+    public PageResultDTO<AccountDetailsDTO> getPaged(AccountFilterDTO filterDTO) {
+        Specification<Account> filter = accountMapper.toSpecification(filterDTO);
+        Page<Account> pagedOwners = accountRepository.findAll(filter, filterDTO.pageable());
+        return new PageResultDTO<>(pagedOwners.map(accountMapper::toDetailsDTO));
     }
 
     @Override

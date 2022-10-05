@@ -7,7 +7,6 @@ import com.jotapem.youraccount.models.dto.owner.OwnerDetailsDTO;
 import com.jotapem.youraccount.models.dto.owner.OwnerFilterDto;
 import com.jotapem.youraccount.models.entities.Owner;
 import com.jotapem.youraccount.repositories.OwnerRepository;
-import com.jotapem.youraccount.repositories.specifications.OwnerSpecification;
 import com.jotapem.youraccount.services.OwnerService;
 import com.jotapem.youraccount.validations.OwnerValidator;
 import lombok.RequiredArgsConstructor;
@@ -48,6 +47,6 @@ public class OwnerServiceImpl implements OwnerService {
     public PageResultDTO<OwnerDetailsDTO> getPaged(OwnerFilterDto filterDto) {
         Specification<Owner> filter = ownerMapper.toSpecification(filterDto);
         Page<Owner> pagedEntities = ownerRepository.findAll(filter,  filterDto.pageable());
-        return new PageResultDTO<OwnerDetailsDTO>(pagedEntities.map(ownerMapper::toDetailsDTO));
+        return new PageResultDTO<>(pagedEntities.map(ownerMapper::toDetailsDTO));
     }
 }

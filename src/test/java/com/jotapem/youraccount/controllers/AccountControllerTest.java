@@ -18,6 +18,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import java.util.UUID;
 
 import static io.zonky.test.db.AutoConfigureEmbeddedDatabase.RefreshMode.AFTER_EACH_TEST_METHOD;
+import static org.hamcrest.Matchers.hasSize;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -129,4 +130,26 @@ class AccountControllerTest {
 
     }
 
+    @Test
+    @Sql("/script/account/0002_test_filter_by_agency.sql")
+    void filterByAgency() throws Exception {
+        RequestBuilder requestBuilder = MockMvcRequestBuilders
+                .get("/api/accounts")
+                .param("agency", "9999")
+                .accept(MediaType.APPLICATION_JSON);
+
+        mockMvc.perform(requestBuilder)
+                .andExpect(status().isOk())
+                .andDo(print())
+                .andExpect(jsonPath("$.elements").isArray())
+                .andExpect(jsonPath("$.elements",hasSize(1)))
+                .andExpect(jsonPath("$.elements[0].id").isNotEmpty())
+                .andExpect(jsonPath("$.elements[0].agency").value("9999"))
+                .andExpect(jsonPath("$.numberElements").value(1))
+                .andExpect(jsonPath("$.totalPages").value(1))
+                .andReturn();
+
+
+        Assertions.assertEquals(2, accountRepository.count());
+    }
 }
