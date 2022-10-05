@@ -10,6 +10,7 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import org.springdoc.api.annotations.ParameterObject;
 import org.springframework.http.ResponseEntity;
 
 import java.util.UUID;
@@ -30,7 +31,7 @@ public interface AccountControllerDocs {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Account list returned successfully")
     })
-    ResponseEntity<PageResultDTO<AccountDetailsDTO>> getPaged(AccountFilterDTO filterDTO);
+    ResponseEntity<PageResultDTO<AccountDetailsDTO>> getPaged(@ParameterObject AccountFilterDTO filterDTO);
 
     @Operation(summary = "Update account operation")
     @ApiResponses(value = {

@@ -11,7 +11,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
 import java.util.UUID;
 
 @RestController
@@ -24,7 +23,7 @@ public class OwnerController implements OwnerControllerDocs {
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<PageResultDTO<OwnerDetailsDTO>> getPaged(@Valid OwnerFilterDto filterDto){
+    public ResponseEntity<PageResultDTO<OwnerDetailsDTO>> getPaged(OwnerFilterDto filterDto){
         PageResultDTO<OwnerDetailsDTO> result = ownerService.getPaged(filterDto);
         return ResponseEntity.ok(result);
     }
