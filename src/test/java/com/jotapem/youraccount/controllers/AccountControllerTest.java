@@ -152,27 +152,4 @@ class AccountControllerTest {
 
         Assertions.assertEquals(2, accountRepository.count());
     }
-
-    @Test
-    @Sql("/script/account/0002_test_filter_by_agency.sql")
-    void filterByAgencyError() throws Exception {
-        RequestBuilder requestBuilder = MockMvcRequestBuilders
-                .get("/api/accounts")
-                .param("agency", "9999")
-                .accept(MediaType.APPLICATION_JSON);
-
-        mockMvc.perform(requestBuilder)
-                .andExpect(status().isNoContent())
-                .andDo(print())
-                .andExpect(jsonPath("$.elements").isArray())
-                .andExpect(jsonPath("$.elements",hasSize(1)))
-                .andExpect(jsonPath("$.elements[0].id").isNotEmpty())
-                .andExpect(jsonPath("$.elements[0].agency").value("9999"))
-                .andExpect(jsonPath("$.numberElements").value(1))
-                .andExpect(jsonPath("$.totalPages").value(1))
-                .andReturn();
-
-
-        Assertions.assertEquals(2, accountRepository.count());
-    }
 }
